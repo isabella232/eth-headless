@@ -1,0 +1,19 @@
+{
+  "name": "eth-headless",
+  "version": "0.0.0",
+  "description": "A headless Ethereum UI component library",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scaffold-eth/eth-headless.git"
+  },
+  "author": "Mark Grothe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scaffold-eth/eth-headless/issues"
+  },
+  "homepage": "https://github.com/scaffold-eth/eth-headless#readme"
+}
