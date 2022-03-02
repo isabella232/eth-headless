@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/scaffold-eth/eth-headless#readme",
   "devDependencies": {
+    "@types/react": "^17.0.39",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "esbuild": "^0.14.23",
@@ -36,7 +37,8 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
-    "prettier-eslint": "^13.0.0"
+    "prettier-eslint": "^13.0.0",
+    "react": "^17.0.2"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
@@ -46,5 +48,12 @@
     "**/*.{json}": [
       "yarn format"
     ]
+  },
+  "dependencies": {
+    "eth-hooks": "^4.0.44",
+    "ethers": "^5.5.4"
+  },
+  "peerDependencies": {
+    "react": "*"
   }
 }
