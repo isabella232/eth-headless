@@ -29,37 +29,37 @@ import { utils } from 'ethers';
   - Provide price={price} of ether and get your balance converted to dollars
 */
 
-const Balance =
-  (Component) =>
-  ({ address, value, balance: propsBalance, provider, price: propsPrice, dollarMultiplier, ...props }) => {
-    const [dollarMode, setDollarMode] = useState(true);
+// const Balance =
+//   (Component) =>
+//   ({ address, value, balance: propsBalance, provider, price: propsPrice, dollarMultiplier, ...props }) => {
+//     const [dollarMode, setDollarMode] = useState(true);
 
-    const balance = useBalance(provider, address);
-    let floatBalance = parseFloat('0.00');
-    let usingBalance = balance;
+//     const balance = useBalance(provider, address);
+//     let floatBalance = parseFloat('0.00');
+//     let usingBalance = balance;
 
-    if (typeof propsBalance !== 'undefined') usingBalance = propsBalance;
-    if (typeof value !== 'undefined') usingBalance = value;
+//     if (typeof propsBalance !== 'undefined') usingBalance = propsBalance;
+//     if (typeof value !== 'undefined') usingBalance = value;
 
-    if (usingBalance) {
-      const etherBalance = utils.formatEther(usingBalance);
-      parseFloat(etherBalance).toFixed(2);
-      floatBalance = parseFloat(etherBalance);
-    }
+//     if (usingBalance) {
+//       const etherBalance = utils.formatEther(usingBalance);
+//       parseFloat(etherBalance).toFixed(2);
+//       floatBalance = parseFloat(etherBalance);
+//     }
 
-    let displayBalance = floatBalance.toFixed(4);
+//     let displayBalance = floatBalance.toFixed(4);
 
-    const price = propsPrice || dollarMultiplier || 1;
+//     const price = propsPrice || dollarMultiplier || 1;
 
-    if (dollarMode) {
-      displayBalance = '$' + (floatBalance * price).toFixed(2);
-    }
+//     if (dollarMode) {
+//       displayBalance = '$' + (floatBalance * price).toFixed(2);
+//     }
 
-    const toggleMode = () => {
-      setDollarMode(!dollarMode);
-    };
+//     const toggleMode = () => {
+//       setDollarMode(!dollarMode);
+//     };
 
-    return <Component toggleMode={toggleMode} displayBalance={displayBalance} {...props} />;
-  };
+//     return <Component toggleMode={toggleMode} displayBalance={displayBalance} {...props} />;
+//   };
 
-export default Balance;
+// export default Balance;

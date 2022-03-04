@@ -1,20 +1,31 @@
 import { useState } from 'react';
-import { useBalance } from 'eth-hooks';
 
-import { utils } from 'ethers';
+import { BigNumber, utils } from 'ethers';
 
 export interface BalanceProps {
-  balance: number;
+  balance: BigNumber;
+  ethPrice: number;
 }
 
-export const Balance: React.FC<BalanceProps> = ({ balance }) => {
+export const Balance: React.FC<BalanceProps> = ({ balance, ethPrice }) => {
   const { dollarMode, toggleMode } = useDollarMode();
-  const { displayBalance } = useTokenBalance({ balance, price: 1, dollarMultiplier: 1, dollarMode });
-  return <h1 onClick={toggleMode}>{displayBalance}</h1>;
+  const { displayBalance } = useTokenBalance({ balance, price: ethPrice, dollarMultiplier: 1, dollarMode });
+
+  return (
+    <span
+      style={{
+        verticalAlign: 'middle',
+        padding: 8,
+        cursor: 'pointer',
+      }}
+      onClick={toggleMode}>
+      {displayBalance}
+    </span>
+  );
 };
 
 export interface TokenBalanceProps {
-  balance: number;
+  balance: BigNumber;
   price: number;
   dollarMultiplier: number;
   dollarMode: boolean;
