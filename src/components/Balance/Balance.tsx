@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { BigNumber, utils } from 'ethers';
 import { useBalance as useEthHooksBalance } from 'eth-hooks';
 
-interface BalanceProps {
+export interface BalanceProps {
   address: string;
   price?: number;
   balance?: BigNumber;
   dollarMultiplier?: number;
 }
 
-interface UseBalanceResult {
+export interface UseBalanceResult {
   displayBalance: string;
   toggleMode: () => void;
 }
@@ -44,4 +44,21 @@ export const useBalance = (props: BalanceProps): UseBalanceResult => {
     displayBalance,
     toggleMode,
   };
+};
+
+export const SomeComponent = () => {
+  const { displayBalance, toggleMode } = useBalance({ address: '0x0000000000000000000000000000000000000000' });
+  return (
+    <span
+      className="Balance"
+      style={{
+        verticalAlign: 'middle',
+        fontSize: 24,
+        padding: 8,
+        cursor: 'pointer',
+      }}
+      onClick={toggleMode}>
+      {displayBalance}
+    </span>
+  );
 };

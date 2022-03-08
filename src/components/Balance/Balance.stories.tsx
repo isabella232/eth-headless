@@ -3,11 +3,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { useBalance } from './Balance';
 
 import { utils } from 'ethers';
+import { SomeComponent } from '.';
 
-// export default {
-//   title: 'Balance',
-//   component: Balance,
-// } as ComponentMeta<typeof Balance>;
+export default {
+  title: 'Balance',
+  component: SomeComponent,
+} as ComponentMeta<typeof SomeComponent>;
 
 // export const Primary: ComponentStory<typeof Balance> = () => {
 //   const { displayBalance, toggleMode } = useBalance({ address: '0x0000000000000000000000000000000000000000' });
