@@ -1,78 +1,47 @@
 import { useState } from 'react';
 
 import { BigNumber, utils } from 'ethers';
+import { useBalance as useEthHooksBalance } from 'eth-hooks';
 
-export interface BalanceProps {
-  balance: BigNumber;
-  ethPrice: number;
+interface BalanceProps {
+  address: string;
+  price?: number;
+  balance?: BigNumber;
+  dollarMultiplier?: number;
 }
 
-export const Balance: React.FC<BalanceProps> = ({ balance, ethPrice }) => {
-  const { dollarMode, toggleMode } = useDollarMode();
-  const { displayBalance } = useTokenBalance({ balance, price: ethPrice, dollarMultiplier: 1, dollarMode });
-
-  return (
-    <span
-      style={{
-        verticalAlign: 'middle',
-        padding: 8,
-        cursor: 'pointer',
-      }}
-      onClick={toggleMode}>
-      {displayBalance}
-    </span>
-  );
-};
-
-export interface TokenBalanceProps {
-  balance: BigNumber;
-  price: number;
-  dollarMultiplier: number;
-  dollarMode: boolean;
-}
-
-export interface TokenBalanceReturn {
+interface UseBalanceResult {
   displayBalance: string;
+  toggleMode: () => void;
 }
 
-const useTokenBalance = (props: TokenBalanceProps) => {
-  const { balance, price, dollarMultiplier, dollarMode } = props;
-  let floatBalance = parseFloat('0.00');
-  let usingBalance = balance;
+export const useBalance = (props: BalanceProps): UseBalanceResult => {
+  const [dollarMode, setDollarMode] = useState(true);
+  const [balance] = useEthHooksBalance(props.address);
 
-  if (usingBalance) {
-    const etherBalance = utils.formatEther(usingBalance);
-    parseFloat(etherBalance).toFixed(2);
+  let resolvedBalance = BigNumber.from(balance ?? 0);
+  if (props.balance != null) {
+    resolvedBalance = BigNumber.from(props.balance);
+  }
+
+  let floatBalance = parseFloat('0.00');
+  if (resolvedBalance) {
+    const etherBalance = utils.formatEther(resolvedBalance);
     floatBalance = parseFloat(etherBalance);
   }
 
   let displayBalance = floatBalance.toFixed(4);
-
-  const p = price || dollarMultiplier || 1;
-
-  if (dollarMode) {
-    displayBalance = '$' + (floatBalance * p).toFixed(2);
+  const price = props.price ?? props.dollarMultiplier;
+  if (price && dollarMode) {
+    displayBalance = '$' + (floatBalance * price).toFixed(2);
   }
-
-  return {
-    displayBalance,
-  };
-};
-
-export interface DollarModeReturn {
-  dollarMode: boolean;
-  toggleMode: () => void;
-}
-
-const useDollarMode = () => {
-  const [dollarMode, setDollarMode] = useState(true);
 
   const toggleMode = () => {
     setDollarMode(!dollarMode);
   };
 
   return {
-    dollarMode,
+    displayBalance,
     toggleMode,
   };
 };
